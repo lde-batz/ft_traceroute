@@ -39,7 +39,7 @@ char	receive_pkt(t_traceroute *tcrt, int fd_recv, struct timeval *time_send)
 	struct ip			*ip;
 	struct sockaddr_in	r_addr;
 
-	tv.tv_sec = 5;
+	tv.tv_sec = 2;
 	tv.tv_usec = 0;
 	FD_ZERO(&rfds);
 	FD_SET(fd_recv, &rfds);
