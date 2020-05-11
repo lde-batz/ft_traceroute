@@ -1,6 +1,15 @@
 
 #include "ft_traceroute.h"
 
+void	check_root(void)
+{
+	if (getuid() != 0)
+    {
+        printf("Error user: only root is permitted\n");
+		exit(EXIT_FAILURE);
+    }
+}
+
 void	init_traceroute(t_traceroute *tcrt)
 {
 	ft_bzero(tcrt, sizeof(tcrt));
@@ -24,6 +33,7 @@ int		main(int argc, char **argv)
 		exit_help(NULL);
 	else
 	{
+		check_root();
 		init_traceroute(&tcrt);
 		parcing(&tcrt, argc, argv);
 	}
