@@ -8,10 +8,6 @@ void	init_traceroute(t_traceroute *tcrt)
 	tcrt->host = NULL;
 	if (!(tcrt->host_tmp = (char *)malloc(sizeof(char) * 16)))
 		exit_tcrt("Error malloc()", tcrt);
-	if (tcrt->host)
-		printf("oui\n");
-	if (tcrt->host_tmp)
-		printf("oui\n");
 	tcrt->first_ttl = 1;
 	tcrt->max_ttl = 30;
 	tcrt->opt_n = 0;
