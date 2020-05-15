@@ -5,8 +5,8 @@ void	exit_help(char *msg)
 	if (msg)
 		printf("%s\n", msg);
 	printf("Usage:\n");
-	printf("  traceroute [ -hn ] [ -f first_ttl ] [ -m max_ttl] [ -p port ]");
-	printf(" [ -z sendwait ] host\n");
+	printf("  traceroute [ -hn ] [ -f first_ttl ] [ -m max_ttl]");
+	printf(" [ -q nqueries ] [ -z sendwait ] host\n");
 	printf("Options:\n");
 	printf("  -f first_ttl          Start from the fisrt_ttl hop (instead from 1)\n");
 	printf("  -h                    Read this help and exit\n");

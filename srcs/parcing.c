@@ -65,6 +65,9 @@ void	parcing(t_traceroute *tcrt, int argc, char **argv)
 			exit_help("Error! Only one host");
 	}
 	if (tcrt->hostname == NULL)
-		exit_tcrt("Specify \"host\" missing argument.", tcrt);
+	{
+		printf("Specify \"host\" missing argument.\n");
+		exit_tcrt(NULL, tcrt);
+	}
 	get_ip_by_hostname(tcrt);
 }
