@@ -1,6 +1,29 @@
 #include "ft_traceroute.h"
 
-void	parcing_option_f(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
+void	init_str_val_opt(t_traceroute *tcrt, int argc,
+							char **argv, t_parcing *p)
+{
+	if (++p->i >= argc)
+	{
+		printf("Option `-%c' (argc %i) requires an argument", p->c, p->i - 1);
+		if (p->c == 'f')
+			printf(": `-f first_ttl'\n");
+		else if (p->c == 'm')
+			printf(": `-m max_ttl'\n");
+		else if (p->c == 'q')
+			printf(": `-q nqueries'\n");
+		else if (p->c == 'm')
+			printf(": `-z sendwait'\n");
+		exit_tcrt(NULL, tcrt);
+	}
+	if (!(p->str_val_opt =
+			(char *)malloc(sizeof(char) * (ft_strlen(argv[p->i] + 1)))))
+		exit_tcrt("Error malloc()", tcrt);
+	p->str_val_opt = ft_strcpy(p->str_val_opt, argv[p->i]);
+}
+
+void	parcing_option_f(t_traceroute *tcrt, int argc,
+							char **argv, t_parcing *p)
 {
 	p->finish = 1;
 	if (argv[p->i][p->j + 1])
@@ -9,16 +32,7 @@ void	parcing_option_f(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 			exit_tcrt("Error malloc()", tcrt);
 	}
 	else
-	{
-		if (++p->i >= argc)
-		{
-			printf("Option `-f' (argc %i) requires an argument: `-f first_ttl'\n", p->i - 1);
-			exit_tcrt(NULL, tcrt);
-		}
-		if (!(p->str_val_opt = (char *)malloc(sizeof(char) * (ft_strlen(argv[p->i] + 1)))))
-			exit_tcrt("Error malloc()", tcrt);
-		p->str_val_opt = ft_strcpy(p->str_val_opt, argv[p->i]);
-	}
+		init_str_val_opt(tcrt, argc, argv, p);
 	if (!ft_atoi_strict(p->str_val_opt, &p->val_opt))
 		exit_error_atof(tcrt, p, 'f');
 	else if (p->val_opt > 0)
@@ -32,7 +46,8 @@ void	parcing_option_f(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 	free(p->str_val_opt);
 }
 
-void	parcing_option_m(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
+void	parcing_option_m(t_traceroute *tcrt, int argc,
+							char **argv, t_parcing *p)
 {
 	p->finish = 1;
 	if (argv[p->i][p->j + 1])
@@ -41,16 +56,7 @@ void	parcing_option_m(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 			exit_tcrt("Error malloc()", tcrt);
 	}
 	else
-	{
-		if (++p->i >= argc)
-		{
-			printf("Option `-m' (argc %i) requires an argument: `-m max_ttl'\n", p->i - 1);
-			exit_tcrt(NULL, tcrt);
-		}
-		if (!(p->str_val_opt = (char *)malloc(sizeof(char) * (ft_strlen(argv[p->i] + 1)))))
-			exit_tcrt("Error malloc()", tcrt);
-		p->str_val_opt = ft_strcpy(p->str_val_opt, argv[p->i]);
-	}
+		init_str_val_opt(tcrt, argc, argv, p);
 	if (!ft_atoi_strict(p->str_val_opt, &p->val_opt))
 		exit_error_atof(tcrt, p, 'm');
 	else if (p->val_opt > 0 && p->val_opt < 256)
@@ -67,7 +73,8 @@ void	parcing_option_m(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 	free(p->str_val_opt);
 }
 
-void	parcing_option_q(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
+void	parcing_option_q(t_traceroute *tcrt, int argc,
+							char **argv, t_parcing *p)
 {
 	p->finish = 1;
 	if (argv[p->i][p->j + 1])
@@ -76,16 +83,7 @@ void	parcing_option_q(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 			exit_tcrt("Error malloc()", tcrt);
 	}
 	else
-	{
-		if (++p->i >= argc)
-		{
-			printf("Option `-q' (argc %i) requires an argument: `-q nqueries'\n", p->i - 1);
-			exit_tcrt(NULL, tcrt);
-		}
-		if (!(p->str_val_opt = (char *)malloc(sizeof(char) * (ft_strlen(argv[p->i] + 1)))))
-			exit_tcrt("Error malloc()", tcrt);
-		p->str_val_opt = ft_strcpy(p->str_val_opt, argv[p->i]);
-	}
+		init_str_val_opt(tcrt, argc, argv, p);
 	if (!ft_atoi_strict(p->str_val_opt, &p->val_opt))
 		exit_error_atof(tcrt, p, 'q');
 	else if (p->val_opt > 0 && p->val_opt <= 10)
@@ -99,10 +97,12 @@ void	parcing_option_q(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 	free(p->str_val_opt);
 }
 
-void	parcing_option_z(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
+void	parcing_option_z(t_traceroute *tcrt, int argc,
+							char **argv, t_parcing *p)
 {
-	double val = 0;
+	double val;
 
+	val = 0;
 	p->finish = 1;
 	if (argv[p->i][p->j + 1])
 	{
@@ -110,16 +110,7 @@ void	parcing_option_z(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 			exit_tcrt("Error malloc()", tcrt);
 	}
 	else
-	{
-		if (++p->i >= argc)
-		{
-			printf("Option `-z' (argc %i) requires an argument: `-z sendwait'\n", p->i - 1);
-			exit_tcrt(NULL, tcrt);
-		}
-		if (!(p->str_val_opt = (char *)malloc(sizeof(char) * (ft_strlen(argv[p->i] + 1)))))
-			exit_tcrt("Error malloc()", tcrt);
-		p->str_val_opt = ft_strcpy(p->str_val_opt, argv[p->i]);
-	}
+		init_str_val_opt(tcrt, argc, argv, p);
 	if (!ft_atof_strict(p->str_val_opt, &val))
 		exit_error_atof(tcrt, p, 'z');
 	else if (val >= 10)

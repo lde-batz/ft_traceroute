@@ -6,6 +6,21 @@ void	display_first_line(t_traceroute *tcrt)
 			tcrt->hostname, tcrt->host, tcrt->max_ttl);
 }
 
+void	display_host(t_traceroute *tcrt, t_recv *recv)
+{
+	if (strcmp(tcrt->host_tmp, recv->recv_pkt_host) != 0)
+	{
+		ft_strcpy(tcrt->host_tmp, recv->recv_pkt_host);
+		if (tcrt->opt_n)
+			printf(" %s", recv->recv_pkt_host);
+		else
+		{
+			recv->recv_pkt_hostname = get_hostname_by_ip(recv->ip->ip_src);
+			printf(" %s (%s)", recv->recv_pkt_hostname, recv->recv_pkt_host);
+		}
+	}
+}
+
 void	display_recv(struct timeval *time_send)
 {
 	double			interval;

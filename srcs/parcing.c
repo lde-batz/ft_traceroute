@@ -18,12 +18,20 @@ void	get_ip_by_hostname(t_traceroute *tcrt)
 	freeaddrinfo(res);
 }
 
+void	parcing_bad_opt(t_traceroute *tcrt, char **argv, t_parcing *p)
+{
+	if (!(p->bad_opt = ft_strslice(argv[p->i], p->j - 1)))
+		exit_tcrt("Error malloc()", tcrt);
+	printf("Bad option '-%s' (argc %i)\n", p->bad_opt, p->i);
+	free(p->bad_opt);
+	exit_tcrt(NULL, tcrt);
+}
+
 void	parsing_option(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 {
 	p->val_opt = 1;
 	p->j = 0;
 	p->finish = 0;
-	
 	while (!p->finish && argv[p->i][++p->j])
 	{
 		p->c = argv[p->i][p->j];
@@ -40,13 +48,7 @@ void	parsing_option(t_traceroute *tcrt, int argc, char **argv, t_parcing *p)
 		else if (p->c == 'z')
 			parcing_option_z(tcrt, argc, argv, p);
 		else
-		{
-			if (!(p->bad_opt = ft_strslice(argv[p->i], p->j - 1)))
-				exit_tcrt("Error malloc()", tcrt);
-			printf("Bad option '-%s' (argc %i)\n", p->bad_opt, p->i);
-			free(p->bad_opt);
-			exit_tcrt(NULL, tcrt);
-		}
+			parcing_bad_opt(tcrt, argv, p);
 	}
 }
 

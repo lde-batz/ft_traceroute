@@ -4,10 +4,10 @@
 void	check_root(void)
 {
 	if (getuid() != 0)
-    {
-        printf("Error user: only root is permitted\n");
+	{
+		printf("Error user: only root is permitted\n");
 		exit(EXIT_FAILURE);
-    }
+	}
 }
 
 void	init_traceroute(t_traceroute *tcrt)
