@@ -6,7 +6,7 @@
 /*   By: lde-batz <lde-batz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:13:14 by lde-batz          #+#    #+#             */
-/*   Updated: 2020/06/20 16:13:17 by lde-batz         ###   ########.fr       */
+/*   Updated: 2020/08/22 12:02:34 by lde-batz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	traceroute(t_traceroute *tcrt)
 		ft_bzero(tcrt->host_tmp, sizeof(tcrt->host_tmp));
 		while (queries++ < tcrt->nqueries)
 			finish = loop_queries(tcrt, &fd_recv, &queries, &time_send);
-		putchar('\n');
+		printf("\n");
 		tcrt->ttl++;
 	}
 }

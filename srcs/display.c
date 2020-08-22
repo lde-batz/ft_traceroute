@@ -6,7 +6,7 @@
 /*   By: lde-batz <lde-batz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:11:51 by lde-batz          #+#    #+#             */
-/*   Updated: 2020/06/20 16:11:55 by lde-batz         ###   ########.fr       */
+/*   Updated: 2020/08/21 23:02:31 by lde-batz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@ void	display_first_line(t_traceroute *tcrt)
 
 void	display_host(t_traceroute *tcrt, t_recv *recv)
 {
-	if (strcmp(tcrt->host_tmp, recv->recv_pkt_host) != 0)
+	if (ft_strcmp(tcrt->host_tmp, recv->recv_pkt_host) != 0)
 	{
 		ft_strcpy(tcrt->host_tmp, recv->recv_pkt_host);
-		if (tcrt->opt_n)
-			printf(" %s", recv->recv_pkt_host);
-		else
-		{
-			recv->recv_pkt_hostname = get_hostname_by_ip(recv->ip->ip_src);
-			printf(" %s (%s)", recv->recv_pkt_hostname, recv->recv_pkt_host);
-		}
+		printf(" %s", recv->recv_pkt_host);
 	}
 }
 

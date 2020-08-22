@@ -6,7 +6,7 @@
 /*   By: lde-batz <lde-batz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:13:14 by lde-batz          #+#    #+#             */
-/*   Updated: 2020/06/20 16:13:17 by lde-batz         ###   ########.fr       */
+/*   Updated: 2020/08/21 23:22:56 by lde-batz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ void	wait_time(t_traceroute *tcrt, struct timeval *time_send)
 		interval *= 1000000;
 		interval += time.tv_usec - time_send->tv_usec;
 	}
-}
-
-char	*get_hostname_by_ip(struct in_addr ip)
-{
-	struct hostent *hostent;
-
-	hostent = gethostbyaddr(&ip, sizeof(ip), AF_INET);
-	if (hostent)
-		return (hostent->h_name);
-	return (inet_ntoa(ip));
 }
 
 char	receive_pkt(t_traceroute *tcrt, int fd_recv, struct timeval *time_send)
@@ -101,7 +91,7 @@ void	traceroute(t_traceroute *tcrt)
 		ft_bzero(tcrt->host_tmp, sizeof(tcrt->host_tmp));
 		while (queries++ < tcrt->nqueries)
 			finish = loop_queries(tcrt, &fd_recv, &queries, &time_send);
-		putchar('\n');
+		printf("\n");
 		tcrt->ttl++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lde-batz <lde-batz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:12:03 by lde-batz          #+#    #+#             */
-/*   Updated: 2020/06/20 16:12:08 by lde-batz         ###   ########.fr       */
+/*   Updated: 2020/08/22 12:00:56 by lde-batz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	exit_error_atof(t_traceroute *tcrt, t_parcing *p, char opt)
 void	exit_tcrt(char *msg, t_traceroute *tcrt)
 {
 	if (msg)
-		perror(msg);
+		ft_putendl(msg);
 	if (tcrt->host)
 		free(tcrt->host);
 	if (tcrt->host_tmp)
