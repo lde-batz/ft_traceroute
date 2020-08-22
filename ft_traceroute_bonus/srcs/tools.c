@@ -6,7 +6,7 @@
 /*   By: lde-batz <lde-batz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:13:03 by lde-batz          #+#    #+#             */
-/*   Updated: 2020/06/20 16:13:06 by lde-batz         ###   ########.fr       */
+/*   Updated: 2020/08/22 12:20:11 by lde-batz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ int		ft_atof_strict1(char *str, int *i, int *sign, double *ret)
 	error = 1;
 	while ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == 32)
 		(*i)++;
-	if (str[*i] == 43 || str[*i] == 45)
-		sign = (str[*i++] == 45) ? 0 : sign;
+	if (str[*i] == '+' || str[*i] == '-')
+		*sign = (str[(*i)++] == 45) ? 0 : *sign;
 	if (str[*i] >= '0' && str[*i] <= '9')
 		error = 0;
 	while (str[*i] >= '0' && str[*i] <= '9')
-		*ret = *ret * 10 + (str[*i++] - 48);
+		*ret = *ret * 10 + (str[(*i)++] - 48);
 	return (error);
 }
 
 void	ft_atof_strict2(char *str, int *i, int *point, double *ret)
 {
-	*point = *i++;
+	*point = (*i)++;
 	while (str[*i] >= '0' && str[*i] <= '9')
 	{
 		*ret += (str[*i] - 48) * ft_powf(10, *point - *i);
